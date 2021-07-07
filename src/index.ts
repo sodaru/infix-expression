@@ -1,3 +1,2 @@
-export const evaluate = expression => {
-  return 1;
-};
+export { default as evaluate } from "./evaluate";
+export * from "./types";
