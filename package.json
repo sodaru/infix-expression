@@ -1,0 +1,49 @@
+{
+  "name": "prefix-expression",
+  "version": "1.0.0",
+  "description": "Evaluate Prefix Expressions represented in JSON",
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "clean": "npx rimraf dist",
+    "prettier": "npx prettier --check --ignore-unknown ./**/*",
+    "typescript": "tsc",
+    "build": "npm run prettier && npm run clean && npm run typescript",
+    "prepack": "npm run build",
+    "test": "npx jest",
+    "postversion": "git push --follow-tags"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sodaru/prefix-expression.git"
+  },
+  "keywords": [
+    "json",
+    "jsonlogic",
+    "expression",
+    "expression",
+    "parsing",
+    "serialize",
+    "expression"
+  ],
+  "author": "Raghavendra K R <raghavendra@sodaru.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sodaru/prefix-expression/issues"
+  },
+  "homepage": "https://github.com/sodaru/prefix-expression#readme",
+  "dependencies": {
+    "jsonpath": "^1.1.1",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.24",
+    "jest": "^27.0.6",
+    "prettier": "^2.3.2",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^27.0.3",
+    "typescript": "^4.3.5"
+  }
+}
