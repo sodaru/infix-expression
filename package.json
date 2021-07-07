@@ -1,6 +1,6 @@
 {
   "name": "prefix-expression",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Evaluate Prefix Expressions represented in JSON",
   "main": "dist/index.js",
   "files": [
