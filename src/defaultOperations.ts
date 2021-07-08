@@ -12,6 +12,20 @@ import PowerOperation, { operator as powerOperator } from "./operations/power";
 import ModulusOperation, {
   operator as modulusOperator
 } from "./operations/modulus";
+import GreaterThanOperation, {
+  operator as greaterThanOperator
+} from "./operations/greaterThan";
+import GreaterThanOrEqualOperation, {
+  operator as greaterThanOrEqualOperator
+} from "./operations/greaterThanOrEqual";
+import LessThanOperation, {
+  operator as lessThanOperator
+} from "./operations/lessThan";
+import LessThanOrEqualOperation, {
+  operator as lessThanOrEqualOperator
+} from "./operations/lessThanOrEqual";
+import MaxOperation, { operator as maxOperator } from "./operations/max";
+import MinOperation, { operator as minOperator } from "./operations/min";
 
 export default {
   [addOperator]: AddOperation,
@@ -19,5 +33,11 @@ export default {
   [multiplyOperator]: MultiplyOperation,
   [divideOperator]: DivideOperation,
   [powerOperator]: PowerOperation,
-  [modulusOperator]: ModulusOperation
+  [modulusOperator]: ModulusOperation,
+  [greaterThanOperator]: GreaterThanOperation,
+  [greaterThanOrEqualOperator]: GreaterThanOrEqualOperation,
+  [lessThanOperator]: LessThanOperation,
+  [lessThanOrEqualOperator]: LessThanOrEqualOperation,
+  [maxOperator]: MaxOperation,
+  [minOperator]: MinOperation
 };

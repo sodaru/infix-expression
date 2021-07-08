@@ -23,9 +23,9 @@ The supported `OPERATOR`s are
   - Arithmatic  
     ( `+`, `-`, `*`, `/`, `pow`, `%` )
   - Comparision  
-    ( `>`, `>=`, `<`, `<=`, `BETWEEN` ) _BETWEEN requires 3 operands [valueToCompare, minRange, maxRange]_
+    ( `>`, `>=`, `<`, `<=` )
   - Others  
-    ( `max`, `min` ) _max and min requires an array of operands_
+    ( `max`, `min` )
 - Boolean Logic
   - Comparision  
     ( `==`, `===`, `!=`, `!==` )
