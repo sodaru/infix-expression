@@ -36,6 +36,10 @@ import NotEqualOperation, {
 import NotEqualStrictOperation, {
   operator as notEqualStrictOperator
 } from "./operations/notEqualStrict";
+import NotOperation, { operator as notOperator } from "./operations/not";
+import OrOperation, { operator as orOperator } from "./operations/or";
+import AndOperation, { operator as andOperator } from "./operations/and";
+import IfOperation, { operator as ifOperator } from "./operations/if";
 
 export default {
   [addOperator]: AddOperation,
@@ -53,5 +57,9 @@ export default {
   [equalOperator]: EqualOperation,
   [equalStrictOperator]: EqualStrictOperation,
   [notEqualOperator]: NotEqualOperation,
-  [notEqualStrictOperator]: NotEqualStrictOperation
+  [notEqualStrictOperator]: NotEqualStrictOperation,
+  [notOperator]: NotOperation,
+  [orOperator]: OrOperation,
+  [andOperator]: AndOperation,
+  [ifOperator]: IfOperation
 };
