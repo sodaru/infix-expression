@@ -19,6 +19,10 @@ describe("Test Prefix Expression's evaluate for subtract operation", () => {
     expect(evaluate({ "-": [50, 30, 5] })).toEqual(15);
   });
 
+  test("with negative operands", () => {
+    expect(evaluate({ "-": [50, -30, 5] })).toEqual(75);
+  });
+
   test("with number string", () => {
     expect(evaluate({ "-": ["50.5", 10, "30"] })).toEqual(10.5);
   });

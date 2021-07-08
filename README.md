@@ -21,7 +21,7 @@ The supported `OPERATOR`s are
 
 - Numeric
   - Arithmatic  
-    ( `+`, `-`, `*`, `/`, `^`, `%` )
+    ( `+`, `-`, `*`, `/`, `pow`, `%` )
   - Comparision  
     ( `>`, `>=`, `<`, `<=`, `BETWEEN` ) _BETWEEN requires 3 operands [valueToCompare, minRange, maxRange]_
   - Others  

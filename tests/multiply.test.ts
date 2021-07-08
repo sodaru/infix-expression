@@ -17,6 +17,10 @@ describe("Test Prefix Expression's evaluate for multiply operation", () => {
     expect(evaluate({ "*": [10, 30, 50] })).toEqual(15000);
   });
 
+  test("with negative operands", () => {
+    expect(evaluate({ "*": [10, -30, 50] })).toEqual(-15000);
+  });
+
   test("with number string", () => {
     expect(evaluate({ "*": [10, "30", "50.5"] })).toEqual(15150);
   });

@@ -19,6 +19,10 @@ describe("Test Prefix Expression's evaluate for divide operation", () => {
     expect(evaluate({ "/": [50, 5, 2] })).toEqual(5);
   });
 
+  test("with negative operands", () => {
+    expect(evaluate({ "/": [50, -5, 2] })).toEqual(-5);
+  });
+
   test("with number string", () => {
     expect(evaluate({ "/": ["50.5", 10, "5"] })).toEqual(1.01);
   });
