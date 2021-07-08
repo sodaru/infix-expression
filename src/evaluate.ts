@@ -7,6 +7,15 @@ import {
   isString
 } from "lodash";
 import AddOperation, { operator as addOperator } from "./operations/add";
+import SubtractOperation, {
+  operator as subtractOperator
+} from "./operations/subtract";
+import MultiplyOperation, {
+  operator as multiplyOperator
+} from "./operations/multiply";
+import DivideOperation, {
+  operator as divideOperator
+} from "./operations/divide";
 import {
   EvaluateHelper,
   Expression,
@@ -20,7 +29,12 @@ type Operators = (string | OperatorLogic)[];
 
 type OperationMap = Record<string, Operation<string>>;
 
-const defaultOperations: OperationMap = { [addOperator]: AddOperation };
+const defaultOperations: OperationMap = {
+  [addOperator]: AddOperation,
+  [subtractOperator]: SubtractOperation,
+  [multiplyOperator]: MultiplyOperation,
+  [divideOperator]: DivideOperation
+};
 
 const evaluate = (
   expression: Expression,

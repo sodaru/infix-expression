@@ -43,42 +43,39 @@ describe("Test Prefix Expression's evaluate for premitives", () => {
       array: []
     });
   });
+
+  test("for function", () => {
+    expect(() =>
+      evaluate({
+        "+": (a: number) => {
+          return a + 1;
+        }
+      })
+    ).toThrowError("invalid operand");
+  });
 });
 
-describe("Test Prefix Expression's evaluate for add operation", () => {
-  test("with one operand", () => {
-    expect(evaluate({ "+": [10] })).toEqual(10);
+describe("Test Prefix Expression's evaluate custom operators", () => {
+  test("limit operations", () => {
+    expect(evaluate({ "*": [5, 6] }, {}, ["+"])).toEqual({ "*": [5, 6] });
   });
 
-  test("with two operands", () => {
-    expect(evaluate({ "+": [10, 30] })).toEqual(40);
+  test("invalid operator", () => {
+    expect(() => evaluate({ "*": [5, 6] }, {}, ["tada"])).toThrowError(
+      "No default Operation Logic for tada"
+    );
   });
 
-  test("with three operands", () => {
-    expect(evaluate({ "+": [10, 30, 50] })).toEqual(90);
-  });
-
-  test("with number string", () => {
-    expect(evaluate({ "+": [10, "30", "50.5"] })).toEqual(90.5);
-  });
-
-  test("with boolean", () => {
-    expect(evaluate({ "+": [10, true, "50.5", false] })).toEqual(61.5);
-  });
-
-  test("with null", () => {
-    expect(evaluate({ "+": [10, null, "50.5"] })).toEqual(60.5);
-  });
-
-  test("with object", () => {
-    expect(() =>
-      evaluate({ "+": [10, true, null, "50.5", { a: "x" }] })
-    ).toThrowError("Can not apply + Operation on operand at 4");
-  });
-
-  test("with nested operation", () => {
+  test("override operator", () => {
     expect(
-      evaluate({ "+": [10, true, null, "50.5", { "+": [5, 6] }] })
-    ).toEqual(72.5);
+      evaluate({ "*": [5, 6] }, {}, [
+        {
+          name: "*",
+          logic: operands => {
+            return operands[0];
+          }
+        }
+      ])
+    ).toEqual(5);
   });
 });
