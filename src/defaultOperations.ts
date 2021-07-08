@@ -26,6 +26,16 @@ import LessThanOrEqualOperation, {
 } from "./operations/lessThanOrEqual";
 import MaxOperation, { operator as maxOperator } from "./operations/max";
 import MinOperation, { operator as minOperator } from "./operations/min";
+import EqualOperation, { operator as equalOperator } from "./operations/equal";
+import EqualStrictOperation, {
+  operator as equalStrictOperator
+} from "./operations/equalStrict";
+import NotEqualOperation, {
+  operator as notEqualOperator
+} from "./operations/notEqual";
+import NotEqualStrictOperation, {
+  operator as notEqualStrictOperator
+} from "./operations/notEqualStrict";
 
 export default {
   [addOperator]: AddOperation,
@@ -39,5 +49,9 @@ export default {
   [lessThanOperator]: LessThanOperation,
   [lessThanOrEqualOperator]: LessThanOrEqualOperation,
   [maxOperator]: MaxOperation,
-  [minOperator]: MinOperation
+  [minOperator]: MinOperation,
+  [equalOperator]: EqualOperation,
+  [equalStrictOperator]: EqualStrictOperation,
+  [notEqualOperator]: NotEqualOperation,
+  [notEqualStrictOperator]: NotEqualStrictOperation
 };
