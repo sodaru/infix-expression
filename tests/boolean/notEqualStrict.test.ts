@@ -1,4 +1,4 @@
-import evaluate from "../src/evaluate";
+import evaluate from "../../src/evaluate";
 
 describe("Test Prefix Expression's evaluate for notEqualStrict operation", () => {
   test("with zero operand", () => {
