@@ -24,7 +24,6 @@ export const isVarExpression = (operand: Expression): boolean => {
       isVarExpression = true;
     }
   }
-
   return isVarExpression;
 };
 
@@ -36,6 +35,16 @@ export const isCallbackExpression = (operand: Expression): boolean => {
       isCallbackExpression = true;
     }
   }
-
   return isCallbackExpression;
+};
+
+export const isCallbackOperand = (operand: Expression): boolean => {
+  let isCallbackOperand = false;
+  if (isPlainObject(operand) && Object.keys(operand).length == 2) {
+    const keys = Object.keys(operand);
+    if (keys[0] == callbackKey && keys[1] == "expression") {
+      isCallbackOperand = true;
+    }
+  }
+  return isCallbackOperand;
 };

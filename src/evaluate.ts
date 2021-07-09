@@ -8,6 +8,7 @@ import {
 } from "lodash";
 
 import {
+  CallbackExpression,
   callbackKey,
   Expression,
   Operation,
@@ -71,7 +72,8 @@ const evaluate = (
             ...args,
             parent: scope
           });
-        }
+        },
+        expression: (expression as CallbackExpression).callback
       };
     } else if (isPlainObject(expression)) {
       const keys = Object.keys(expression);

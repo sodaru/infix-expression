@@ -15,6 +15,8 @@ export type CallbackExpression = {
   [callbackKey]: Expression;
 };
 
+export type CallbackFunction = (args: Record<string, unknown>) => Expression;
+
 export type VarExpression = {
   [varKey]: [string | PrefixExpression, boolean | PrefixExpression];
 };

@@ -27,6 +27,12 @@ describe("Test Prefix Expression's evaluate for var operation", () => {
     });
   });
 
+  test("with invalid 2nd operand", () => {
+    expect(() => evaluate({ var: ["$", [34, 56]] })).toThrowError(
+      "2nd operand for var operator must be a boolean"
+    );
+  });
+
   test("with both unresollved operands", () => {
     expect(
       evaluate({ var: [{ someoperator: [10, 2] }, { someoperator: [1, 2] }] })
@@ -45,5 +51,11 @@ describe("Test Prefix Expression's evaluate for var operation", () => {
 
   test("with invalid jsonpath", () => {
     expect(evaluate({ var: ["shhhh"] }, { a: 20 })).toEqual(undefined);
+  });
+
+  test("with another invalid jsonpath", () => {
+    expect(() => evaluate({ var: [23] }, { a: 20 })).toThrowError(
+      "1st operand for var operator must be a string"
+    );
   });
 });

@@ -54,6 +54,7 @@ import AndOperation, {
   operator as andOperator
 } from "./operations/boolean/and";
 import IfOperation, { operator as ifOperator } from "./operations/boolean/if";
+import MapOperation, { operator as mapOperator } from "./operations/array/map";
 
 export default {
   [addOperator]: AddOperation,
@@ -75,5 +76,6 @@ export default {
   [notOperator]: NotOperation,
   [orOperator]: OrOperation,
   [andOperator]: AndOperation,
-  [ifOperator]: IfOperation
+  [ifOperator]: IfOperation,
+  [mapOperator]: MapOperation
 };
