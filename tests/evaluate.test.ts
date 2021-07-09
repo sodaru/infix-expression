@@ -51,7 +51,7 @@ describe("Test Prefix Expression's evaluate for premitives", () => {
           return a + 1;
         }
       })
-    ).toThrowError("invalid operand");
+    ).toThrowError("invalid expression");
   });
 });
 

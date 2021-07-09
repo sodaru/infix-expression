@@ -1,13 +1,22 @@
-export type EvaluateHelper = (operand: Expression) => Expression;
-
 export type Operation<T extends string = string> = (
-  operands: Array<Expression>,
-  data: unknown
+  operands: Array<Expression>
 ) => Expression<T>;
 
 export type OperatorLogic = {
   name: string;
   logic: Operation<string>;
+};
+
+export const callbackKey = "callback";
+
+export const varKey = "var";
+
+export type CallbackExpression = {
+  [callbackKey]: Expression;
+};
+
+export type VarExpression = {
+  [varKey]: [string | PrefixExpression, boolean | PrefixExpression];
 };
 
 export type Expression<T extends string = string> =
@@ -17,6 +26,8 @@ export type Expression<T extends string = string> =
   | null
   | Array<unknown>
   | Record<string, unknown>
+  | VarExpression
+  | CallbackExpression
   | PrefixExpression<T>;
 
 export type PrefixExpression<T extends string = string> = {

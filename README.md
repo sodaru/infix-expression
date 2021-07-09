@@ -44,8 +44,15 @@ The supported `OPERATOR`s are
   - ( `match` )
   - ( `cat` )
   - ( `substr`, `length` )
-- Data Access
-  - ( `var` ) _Uses [JSONPath](https://www.npmjs.com/package/jsonpath) to access data_
+- Special Operators  
+   _Special Operators can not be overrided or removed_
+  - Data Access  
+    ( `var` )  
+    _Uses [JSONPath](https://www.npmjs.com/package/jsonpath) to access data_  
+    has 2 operands , 1st is a JSON path string or an expression which resolves into a string , 2nd is boolean indicating to return all or 1st result from json path query
+  - Callback  
+    ( `callback` )  
+    to differ the evaluation of expression until parent expression is evaluated ... parent Operation can use the callback to evaluate child expression with new data
 
 ## Install
 

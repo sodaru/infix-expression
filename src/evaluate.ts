@@ -8,18 +8,27 @@ import {
 } from "lodash";
 
 import {
-  EvaluateHelper,
+  callbackKey,
   Expression,
   Operation,
   OperatorLogic,
-  PrefixExpression
+  PrefixExpression,
+  VarExpression,
+  varKey
 } from "./types";
-import { isPrefixExpression } from "./utils";
+import {
+  isCallbackExpression,
+  isPrefixExpression,
+  isVarExpression
+} from "./utils";
 import defaultOperations from "./defaultOperations";
+import VarOperation from "./var";
 
 type Operators = (string | OperatorLogic)[];
 
 type OperationMap = Record<string, Operation<string>>;
+
+type EvaluateHelper = (expression: Expression, scope: unknown) => Expression;
 
 const evaluate = (
   expression: Expression,
@@ -42,22 +51,33 @@ const evaluate = (
     }
   });
 
-  const _evaluate: EvaluateHelper = operand => {
+  const _evaluate: EvaluateHelper = (expression, scope) => {
     let result: Expression = null;
     if (
-      isString(operand) ||
-      isNumber(operand) ||
-      isBoolean(operand) ||
-      isNull(operand)
+      isString(expression) ||
+      isNumber(expression) ||
+      isBoolean(expression) ||
+      isNull(expression)
     ) {
-      result = operand;
-    } else if (isArray(operand)) {
-      result = operand.map(_evaluate);
-    } else if (isPlainObject(operand)) {
-      const keys = Object.keys(operand);
+      result = expression;
+    } else if (isArray(expression)) {
+      result = expression.map((childExpression: Expression) =>
+        _evaluate(childExpression, scope)
+      );
+    } else if (isCallbackExpression(expression)) {
+      result = {
+        callback: (args: Record<string, unknown>): Expression => {
+          return _evaluate(expression[callbackKey] as Expression, {
+            ...args,
+            parent: scope
+          });
+        }
+      };
+    } else if (isPlainObject(expression)) {
+      const keys = Object.keys(expression);
       const evaluatedObject = {};
       keys.forEach(key => {
-        evaluatedObject[key] = _evaluate(operand[key] as Expression);
+        evaluatedObject[key] = _evaluate(expression[key] as Expression, scope);
       });
 
       result = evaluatedObject;
@@ -70,16 +90,19 @@ const evaluate = (
 
         const operation = operations[operator];
         if (operation) {
-          result = operation(operands, _data);
+          result = operation(operands);
         }
+      } else if (isVarExpression(evaluatedObject)) {
+        const varExpression: VarExpression = evaluatedObject as VarExpression;
+        result = VarOperation(varExpression[varKey], scope);
       }
     } else {
-      throw new Error(`invalid operand`);
+      throw new Error(`invalid expression`);
     }
     return result;
   };
 
-  return _evaluate(expression);
+  return _evaluate(expression, _data);
 };
 
 export default evaluate;
