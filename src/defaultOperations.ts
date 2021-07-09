@@ -1,45 +1,59 @@
-import AddOperation, { operator as addOperator } from "./operations/add";
+import AddOperation, {
+  operator as addOperator
+} from "./operations/arithmatic/add";
 import SubtractOperation, {
   operator as subtractOperator
-} from "./operations/subtract";
+} from "./operations/arithmatic/subtract";
 import MultiplyOperation, {
   operator as multiplyOperator
-} from "./operations/multiply";
+} from "./operations/arithmatic/multiply";
 import DivideOperation, {
   operator as divideOperator
-} from "./operations/divide";
-import PowerOperation, { operator as powerOperator } from "./operations/power";
+} from "./operations/arithmatic/divide";
+import PowerOperation, {
+  operator as powerOperator
+} from "./operations/arithmatic/power";
 import ModulusOperation, {
   operator as modulusOperator
-} from "./operations/modulus";
+} from "./operations/arithmatic/modulus";
 import GreaterThanOperation, {
   operator as greaterThanOperator
-} from "./operations/greaterThan";
+} from "./operations/arithmatic/greaterThan";
 import GreaterThanOrEqualOperation, {
   operator as greaterThanOrEqualOperator
-} from "./operations/greaterThanOrEqual";
+} from "./operations/arithmatic/greaterThanOrEqual";
 import LessThanOperation, {
   operator as lessThanOperator
-} from "./operations/lessThan";
+} from "./operations/arithmatic/lessThan";
 import LessThanOrEqualOperation, {
   operator as lessThanOrEqualOperator
-} from "./operations/lessThanOrEqual";
-import MaxOperation, { operator as maxOperator } from "./operations/max";
-import MinOperation, { operator as minOperator } from "./operations/min";
-import EqualOperation, { operator as equalOperator } from "./operations/equal";
+} from "./operations/arithmatic/lessThanOrEqual";
+import MaxOperation, {
+  operator as maxOperator
+} from "./operations/arithmatic/max";
+import MinOperation, {
+  operator as minOperator
+} from "./operations/arithmatic/min";
+import EqualOperation, {
+  operator as equalOperator
+} from "./operations/boolean/equal";
 import EqualStrictOperation, {
   operator as equalStrictOperator
-} from "./operations/equalStrict";
+} from "./operations/boolean/equalStrict";
 import NotEqualOperation, {
   operator as notEqualOperator
-} from "./operations/notEqual";
+} from "./operations/boolean/notEqual";
 import NotEqualStrictOperation, {
   operator as notEqualStrictOperator
-} from "./operations/notEqualStrict";
-import NotOperation, { operator as notOperator } from "./operations/not";
-import OrOperation, { operator as orOperator } from "./operations/or";
-import AndOperation, { operator as andOperator } from "./operations/and";
-import IfOperation, { operator as ifOperator } from "./operations/if";
+} from "./operations/boolean/notEqualStrict";
+import NotOperation, {
+  operator as notOperator
+} from "./operations/boolean/not";
+import OrOperation, { operator as orOperator } from "./operations/boolean/or";
+import AndOperation, {
+  operator as andOperator
+} from "./operations/boolean/and";
+import IfOperation, { operator as ifOperator } from "./operations/boolean/if";
 
 export default {
   [addOperator]: AddOperation,

@@ -1,5 +1,5 @@
-import { Operation } from "../types";
-import { isPrefixExpression } from "../utils";
+import { Operation } from "../../types";
+import { isPrefixExpression } from "../../utils";
 
 export const operator = "||";
 

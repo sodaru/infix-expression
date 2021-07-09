@@ -1,15 +1,15 @@
-import { Operation, PrefixExpression } from "../types";
+import { Operation, PrefixExpression } from "../../types";
 import { isNaN, toNumber } from "lodash";
-import { isPrefixExpression } from "../utils";
+import { isPrefixExpression } from "../../utils";
 
-export const operator = "/";
+export const operator = "-";
 
-const DivideOperation: Operation<typeof operator> = operands => {
+const SubtractOperation: Operation<typeof operator> = operands => {
   if (operands.length == 0) {
     throw new Error(`atleast 1 operand is expected for operator ${operator}`);
   }
 
-  let totalDivisor = 1;
+  let totalSubraction = 0;
   const unresolvedOperands: PrefixExpression[] = [];
   operands.forEach((operand, i) => {
     if (i === 0) {
@@ -17,7 +17,7 @@ const DivideOperation: Operation<typeof operator> = operands => {
     }
     const number = toNumber(operand);
     if (!isNaN(number)) {
-      totalDivisor *= number;
+      totalSubraction += number;
     } else if (isPrefixExpression(operand)) {
       unresolvedOperands.push(operand as PrefixExpression);
     } else {
@@ -32,11 +32,11 @@ const DivideOperation: Operation<typeof operator> = operands => {
 
   if (isPrefixExpression(operands[0]) || unresolvedOperands.length > 0) {
     return {
-      [operator]: [operands[0], totalDivisor, ...unresolvedOperands]
+      [operator]: [operands[0], totalSubraction, ...unresolvedOperands]
     };
   }
 
-  return firstNumber / totalDivisor;
+  return firstNumber - totalSubraction;
 };
 
-export default DivideOperation;
+export default SubtractOperation;

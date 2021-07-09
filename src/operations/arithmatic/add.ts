@@ -1,16 +1,16 @@
-import { Operation, PrefixExpression } from "../types";
+import { Operation, PrefixExpression } from "../../types";
 import { isNaN, toNumber } from "lodash";
-import { isPrefixExpression } from "../utils";
+import { isPrefixExpression } from "../../utils";
 
-export const operator = "*";
+export const operator = "+";
 
-const MultiplyOperation: Operation<typeof operator> = operands => {
-  let product = 1;
+const AddOperation: Operation<typeof operator> = operands => {
+  let sum = 0;
   const unresolvedOperands: PrefixExpression[] = [];
   operands.forEach((operand, i) => {
     const number = toNumber(operand);
     if (!isNaN(number)) {
-      product *= number;
+      sum += number;
     } else if (isPrefixExpression(operand)) {
       unresolvedOperands.push(operand as PrefixExpression);
     } else {
@@ -18,10 +18,10 @@ const MultiplyOperation: Operation<typeof operator> = operands => {
     }
   });
   if (unresolvedOperands.length == 0) {
-    return product;
+    return sum;
   } else {
-    return { [operator]: [product, ...unresolvedOperands] };
+    return { [operator]: [sum, ...unresolvedOperands] };
   }
 };
 
-export default MultiplyOperation;
+export default AddOperation;

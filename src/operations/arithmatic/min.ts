@@ -1,6 +1,6 @@
-import { Expression, Operation, PrefixExpression } from "../types";
+import { Expression, Operation, PrefixExpression } from "../../types";
 import { isNaN, toNumber } from "lodash";
-import { isPrefixExpression } from "../utils";
+import { isPrefixExpression } from "../../utils";
 
 export const operator = "min";
 

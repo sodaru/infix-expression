@@ -1,6 +1,6 @@
-import { Operation } from "../types";
+import { Operation } from "../../types";
 import { isNaN, toNumber } from "lodash";
-import { isPrefixExpression } from "../utils";
+import { isPrefixExpression } from "../../utils";
 
 export const operator = "pow";
 

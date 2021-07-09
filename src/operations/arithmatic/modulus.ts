@@ -1,10 +1,10 @@
-import { Operation } from "../types";
+import { Operation } from "../../types";
 import { isNaN, toNumber } from "lodash";
-import { isPrefixExpression } from "../utils";
+import { isPrefixExpression } from "../../utils";
 
-export const operator = ">";
+export const operator = "%";
 
-const GreaterThanOperation: Operation<typeof operator> = operands => {
+const ModulusOperation: Operation<typeof operator> = operands => {
   if (operands.length != 2) {
     throw new Error(`${operator} operator needs exactly 2 operands`);
   }
@@ -21,10 +21,10 @@ const GreaterThanOperation: Operation<typeof operator> = operands => {
   }
 
   if (!isNaN(firstNumber) && !isNaN(secondNumber)) {
-    return firstNumber > secondNumber;
+    return firstNumber % secondNumber;
   } else {
     return { [operator]: [...operands] };
   }
 };
 
-export default GreaterThanOperation;
+export default ModulusOperation;
