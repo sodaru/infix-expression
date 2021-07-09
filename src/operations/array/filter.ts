@@ -2,9 +2,9 @@ import { isArray } from "lodash";
 import { CallbackFunction, Expression, Operation } from "../../types";
 import { isCallbackOperand, isPrefixExpression } from "../../utils";
 
-export const operator = "map";
+export const operator = "filter";
 
-const MapOperation: Operation<typeof operator> = operands => {
+const FilterOperation: Operation<typeof operator> = operands => {
   if (operands.length != 2) {
     throw new Error(`${operator} operator needs exactly 2 operands`);
   }
@@ -37,9 +37,9 @@ const MapOperation: Operation<typeof operator> = operands => {
     return { [operator]: [operands[0], { callback: callback.expression }] };
   }
 
-  return (operands[0] as Expression[]).map((item, i) => {
+  return (operands[0] as Expression[]).filter((item, i) => {
     return callback.callback({ item, i });
   });
 };
 
-export default MapOperation;
+export default FilterOperation;
