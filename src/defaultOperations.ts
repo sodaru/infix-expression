@@ -58,6 +58,18 @@ import MapOperation, { operator as mapOperator } from "./operations/array/map";
 import FilterOperation, {
   operator as filterOperator
 } from "./operations/array/filter";
+import ReduceOperation, {
+  operator as reduceOperator
+} from "./operations/array/reduce";
+import IntersectionOperation, {
+  operator as intersectionOperator
+} from "./operations/array/intersection";
+import UnionOperation, {
+  operator as unionOperator
+} from "./operations/array/union";
+import DiffOperation, {
+  operator as diffOperator
+} from "./operations/array/diff";
 
 export default {
   [addOperator]: AddOperation,
@@ -81,5 +93,9 @@ export default {
   [andOperator]: AndOperation,
   [ifOperator]: IfOperation,
   [mapOperator]: MapOperation,
-  [filterOperator]: FilterOperation
+  [filterOperator]: FilterOperation,
+  [reduceOperator]: ReduceOperation,
+  [intersectionOperator]: IntersectionOperation,
+  [unionOperator]: UnionOperation,
+  [diffOperator]: DiffOperation
 };

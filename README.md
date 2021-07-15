@@ -44,6 +44,8 @@ The supported `OPERATOR`s are
   - ( `match` )
   - ( `cat` )
   - ( `substr`, `length` )
+- Object
+  - ( `entries` )
 - Special Operators  
    _Special Operators can not be overrided or removed_
   - Data Access  
