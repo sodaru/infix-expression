@@ -11,7 +11,6 @@ import {
   CallbackExpression,
   callbackKey,
   Expression,
-  Operation,
   OperatorLogic,
   PrefixExpression,
   VarExpression,
@@ -24,10 +23,11 @@ import {
 } from "./utils";
 import defaultOperations from "./defaultOperations";
 import VarOperation from "./var";
+import Ajv from "ajv";
 
 type Operators = (string | OperatorLogic)[];
 
-type OperationMap = Record<string, Operation<string>>;
+type OperationMap = Record<string, OperatorLogic["logic"]>;
 
 type EvaluateHelper = (expression: Expression, scope: unknown) => Expression;
 
@@ -90,9 +90,24 @@ const evaluate = (
         const operator = Object.keys(prefixExpression)[0];
         const operands: Expression[] = prefixExpression[operator];
 
-        const operation = operations[operator];
-        if (operation) {
-          result = operation(operands);
+        const operandsContainPrefixExpression = !operands.every(
+          operand => !isPrefixExpression(operand)
+        );
+        if (!operandsContainPrefixExpression) {
+          const operation = operations[operator];
+          if (operation) {
+            // validate operands
+            const ajv = new Ajv({ coerceTypes: true });
+            const validate = ajv.compile(operation.schema);
+            if (!validate(operands)) {
+              throw new Error(
+                validate.errors
+                  ?.map(e => e.instancePath + " " + e.message)
+                  .join(", ")
+              );
+            }
+            result = operation.operation(operands);
+          }
         }
       } else if (isVarExpression(evaluatedObject)) {
         const varExpression: VarExpression = evaluatedObject as VarExpression;

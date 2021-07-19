@@ -6,7 +6,8 @@
     "rootDir": "./src",
     "lib": ["ESNext"],
     "declaration": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "strictNullChecks": true
   },
   "include": ["src"]
 }

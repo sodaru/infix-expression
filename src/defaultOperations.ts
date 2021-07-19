@@ -1,7 +1,8 @@
 import AddOperation, {
+  schema as addSchema,
   operator as addOperator
 } from "./operations/arithmatic/add";
-import SubtractOperation, {
+/*import SubtractOperation, {
   operator as subtractOperator
 } from "./operations/arithmatic/subtract";
 import MultiplyOperation, {
@@ -69,10 +70,27 @@ import UnionOperation, {
 } from "./operations/array/union";
 import DiffOperation, {
   operator as diffOperator
-} from "./operations/array/diff";
+} from "./operations/array/diff"; */
+import { JSONSchemaType } from "ajv";
+import { Operation } from "./types";
 
-export default {
-  [addOperator]: AddOperation,
+type GenericJSONSChemaType = JSONSchemaType<unknown>;
+
+const defaultOperators: Record<
+  string,
+  { schema: GenericJSONSChemaType; operation: Operation }
+> = {
+  [addOperator]: {
+    schema: addSchema as GenericJSONSChemaType,
+    operation: AddOperation
+  }
+};
+
+export default defaultOperators;
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+/* const a = {
+  [addOperator]: { schema: addSchema, operation: AddOperation },
   [subtractOperator]: SubtractOperation,
   [multiplyOperator]: MultiplyOperation,
   [divideOperator]: DivideOperation,
@@ -98,4 +116,4 @@ export default {
   [intersectionOperator]: IntersectionOperation,
   [unionOperator]: UnionOperation,
   [diffOperator]: DiffOperation
-};
+}; */

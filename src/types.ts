@@ -1,10 +1,15 @@
+import { JSONSchemaType } from "ajv";
+
 export type Operation<T extends string = string> = (
   operands: Array<Expression>
 ) => Expression<T>;
 
 export type OperatorLogic = {
   name: string;
-  logic: Operation<string>;
+  logic: {
+    schema: JSONSchemaType<[]>;
+    operation: Operation<string>;
+  };
 };
 
 export const callbackKey = "callback";
