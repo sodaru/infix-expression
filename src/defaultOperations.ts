@@ -46,20 +46,24 @@ import OrOperation, {
   schema as orSchema,
   operator as orOperator
 } from "./operations/boolean/or";
-
-/*
 import EqualOperation, {
+  schema as equalSchema,
   operator as equalOperator
 } from "./operations/boolean/equal";
 import EqualStrictOperation, {
+  schema as equalStrictSchema,
   operator as equalStrictOperator
 } from "./operations/boolean/equalStrict";
 import NotEqualOperation, {
+  schema as notEqualSchema,
   operator as notEqualOperator
 } from "./operations/boolean/notEqual";
 import NotEqualStrictOperation, {
+  schema as notEqualStrictSchema,
   operator as notEqualStrictOperator
 } from "./operations/boolean/notEqualStrict";
+
+/*
 import NotOperation, {
   operator as notOperator
 } from "./operations/boolean/not";
@@ -140,6 +144,22 @@ const defaultOperators: Record<
   [orOperator]: {
     schema: orSchema,
     operation: OrOperation
+  },
+  [equalOperator]: {
+    schema: equalSchema,
+    operation: EqualOperation
+  },
+  [equalStrictOperator]: {
+    schema: equalStrictSchema,
+    operation: EqualStrictOperation
+  },
+  [notEqualOperator]: {
+    schema: notEqualSchema,
+    operation: NotEqualOperation
+  },
+  [notEqualStrictOperator]: {
+    schema: notEqualStrictSchema,
+    operation: NotEqualStrictOperation
   }
 };
 

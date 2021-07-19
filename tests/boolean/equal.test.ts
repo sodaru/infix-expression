@@ -3,13 +3,13 @@ import evaluate from "../../src/evaluate";
 describe("Test Prefix Expression's evaluate for equal operation", () => {
   test("with zero operand", () => {
     expect(() => evaluate({ "==": [] })).toThrowError(
-      "== operator needs exactly 2 operands"
+      " must NOT have fewer than 2 items"
     );
   });
 
   test("with one operand", () => {
     expect(() => evaluate({ "==": [10] })).toThrowError(
-      "== operator needs exactly 2 operands"
+      " must NOT have fewer than 2 items"
     );
   });
 
@@ -19,7 +19,7 @@ describe("Test Prefix Expression's evaluate for equal operation", () => {
 
   test("with three operands", () => {
     expect(() => evaluate({ "==": [10, 30, 50] })).toThrowError(
-      "== operator needs exactly 2 operands"
+      " must NOT have more than 2 items"
     );
   });
 
@@ -61,6 +61,10 @@ describe("Test Prefix Expression's evaluate for equal operation", () => {
 
   test("with object as left", () => {
     expect(evaluate({ "==": [{ a: "x" }, 2] })).toEqual(false);
+  });
+
+  test("with object in both", () => {
+    expect(evaluate({ "==": [{ a: "x" }, { a: "x" }] })).toEqual(false);
   });
 
   test("with nested operation", () => {
