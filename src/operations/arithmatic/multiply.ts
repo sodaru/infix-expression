@@ -1,27 +1,23 @@
-import { Operation, PrefixExpression } from "../../types";
-import { isNaN, toNumber } from "lodash";
-import { isPrefixExpression } from "../../utils";
+import { JSONSchemaType } from "ajv";
+import { toNumber } from "lodash";
+import { Operation } from "../../types";
 
 export const operator = "*";
 
+export const schema: JSONSchemaType<number[]> = {
+  type: "array",
+  items: {
+    type: "number"
+  },
+  minItems: 0
+};
+
 const MultiplyOperation: Operation<typeof operator> = operands => {
   let product = 1;
-  const unresolvedOperands: PrefixExpression[] = [];
-  operands.forEach((operand, i) => {
-    const number = toNumber(operand);
-    if (!isNaN(number)) {
-      product *= number;
-    } else if (isPrefixExpression(operand)) {
-      unresolvedOperands.push(operand as PrefixExpression);
-    } else {
-      throw new Error(`Can not apply ${operator} Operation on operand at ${i}`);
-    }
+  operands.forEach((operand: number) => {
+    product *= toNumber(operand);
   });
-  if (unresolvedOperands.length == 0) {
-    return product;
-  } else {
-    return { [operator]: [product, ...unresolvedOperands] };
-  }
+  return product;
 };
 
 export default MultiplyOperation;

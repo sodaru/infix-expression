@@ -3,7 +3,7 @@ import evaluate from "../../src/evaluate";
 describe("Test Prefix Expression's evaluate for divide operation", () => {
   test("with zero operand", () => {
     expect(() => evaluate({ "/": [] })).toThrowError(
-      "atleast 1 operand is expected for operator /"
+      " must NOT have fewer than 1 items"
     );
   });
 
@@ -38,13 +38,13 @@ describe("Test Prefix Expression's evaluate for divide operation", () => {
   test("with object", () => {
     expect(() =>
       evaluate({ "/": [10, true, null, "50.5", { a: "x" }] })
-    ).toThrowError("Can not apply / Operation on operand at 4");
+    ).toThrowError("/4 must be number");
   });
 
   test("with object as first operand", () => {
     expect(() =>
       evaluate({ "/": [{ a: "x" }, true, null, "50.5"] })
-    ).toThrowError("Can not apply / Operation on operand at 0");
+    ).toThrowError("/0 must be number");
   });
 
   test("with nested operation", () => {
@@ -54,6 +54,6 @@ describe("Test Prefix Expression's evaluate for divide operation", () => {
   test("with unresolved operand", () => {
     expect(
       evaluate({ "/": [10, true, "50.5", { someOperator: [5, 6] }] })
-    ).toEqual({ "/": [10, 50.5, { someOperator: [5, 6] }] });
+    ).toEqual({ "/": [10, true, "50.5", { someOperator: [5, 6] }] });
   });
 });

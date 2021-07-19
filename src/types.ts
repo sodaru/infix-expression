@@ -7,7 +7,7 @@ export type Operation<T extends string = string> = (
 export type OperatorLogic = {
   name: string;
   logic: {
-    schema: JSONSchemaType<[]>;
+    schema: JSONSchemaType<Expression[]>;
     operation: Operation<string>;
   };
 };

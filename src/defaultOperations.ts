@@ -2,33 +2,44 @@ import AddOperation, {
   schema as addSchema,
   operator as addOperator
 } from "./operations/arithmatic/add";
-/*import SubtractOperation, {
+import SubtractOperation, {
+  schema as subtractSchema,
   operator as subtractOperator
 } from "./operations/arithmatic/subtract";
 import MultiplyOperation, {
+  schema as multiplySchema,
   operator as multiplyOperator
 } from "./operations/arithmatic/multiply";
 import DivideOperation, {
+  schema as divideSchema,
   operator as divideOperator
 } from "./operations/arithmatic/divide";
 import PowerOperation, {
+  schema as powerSchema,
   operator as powerOperator
 } from "./operations/arithmatic/power";
 import ModulusOperation, {
+  schema as modulusSchema,
   operator as modulusOperator
 } from "./operations/arithmatic/modulus";
 import GreaterThanOperation, {
+  schema as greaterThanSchema,
   operator as greaterThanOperator
 } from "./operations/arithmatic/greaterThan";
 import GreaterThanOrEqualOperation, {
+  schema as greaterThanOrEqualSchema,
   operator as greaterThanOrEqualOperator
 } from "./operations/arithmatic/greaterThanOrEqual";
 import LessThanOperation, {
+  schema as lessThanSchema,
   operator as lessThanOperator
 } from "./operations/arithmatic/lessThan";
 import LessThanOrEqualOperation, {
+  schema as lessThanOrEqualSchema,
   operator as lessThanOrEqualOperator
 } from "./operations/arithmatic/lessThanOrEqual";
+
+/*
 import MaxOperation, {
   operator as maxOperator
 } from "./operations/arithmatic/max";
@@ -71,49 +82,53 @@ import UnionOperation, {
 import DiffOperation, {
   operator as diffOperator
 } from "./operations/array/diff"; */
+import { Expression, Operation } from "./types";
 import { JSONSchemaType } from "ajv";
-import { Operation } from "./types";
-
-type GenericJSONSChemaType = JSONSchemaType<unknown>;
 
 const defaultOperators: Record<
   string,
-  { schema: GenericJSONSChemaType; operation: Operation }
+  { schema: JSONSchemaType<Expression[]>; operation: Operation }
 > = {
   [addOperator]: {
-    schema: addSchema as GenericJSONSChemaType,
+    schema: addSchema,
     operation: AddOperation
+  },
+  [subtractOperator]: {
+    schema: subtractSchema,
+    operation: SubtractOperation
+  },
+  [multiplyOperator]: {
+    schema: multiplySchema,
+    operation: MultiplyOperation
+  },
+  [divideOperator]: {
+    schema: divideSchema,
+    operation: DivideOperation
+  },
+  [powerOperator]: {
+    schema: powerSchema,
+    operation: PowerOperation
+  },
+  [modulusOperator]: {
+    schema: modulusSchema,
+    operation: ModulusOperation
+  },
+  [greaterThanOperator]: {
+    schema: greaterThanSchema,
+    operation: GreaterThanOperation
+  },
+  [greaterThanOrEqualOperator]: {
+    schema: greaterThanOrEqualSchema,
+    operation: GreaterThanOrEqualOperation
+  },
+  [lessThanOperator]: {
+    schema: lessThanSchema,
+    operation: LessThanOperation
+  },
+  [lessThanOrEqualOperator]: {
+    schema: lessThanOrEqualSchema,
+    operation: LessThanOrEqualOperation
   }
 };
 
 export default defaultOperators;
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-/* const a = {
-  [addOperator]: { schema: addSchema, operation: AddOperation },
-  [subtractOperator]: SubtractOperation,
-  [multiplyOperator]: MultiplyOperation,
-  [divideOperator]: DivideOperation,
-  [powerOperator]: PowerOperation,
-  [modulusOperator]: ModulusOperation,
-  [greaterThanOperator]: GreaterThanOperation,
-  [greaterThanOrEqualOperator]: GreaterThanOrEqualOperation,
-  [lessThanOperator]: LessThanOperation,
-  [lessThanOrEqualOperator]: LessThanOrEqualOperation,
-  [maxOperator]: MaxOperation,
-  [minOperator]: MinOperation,
-  [equalOperator]: EqualOperation,
-  [equalStrictOperator]: EqualStrictOperation,
-  [notEqualOperator]: NotEqualOperation,
-  [notEqualStrictOperator]: NotEqualStrictOperation,
-  [notOperator]: NotOperation,
-  [orOperator]: OrOperation,
-  [andOperator]: AndOperation,
-  [ifOperator]: IfOperation,
-  [mapOperator]: MapOperation,
-  [filterOperator]: FilterOperation,
-  [reduceOperator]: ReduceOperation,
-  [intersectionOperator]: IntersectionOperation,
-  [unionOperator]: UnionOperation,
-  [diffOperator]: DiffOperation
-}; */

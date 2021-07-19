@@ -3,13 +3,13 @@ import evaluate from "../../src/evaluate";
 describe("Test Prefix Expression's evaluate for power operation", () => {
   test("with zero operand", () => {
     expect(() => evaluate({ pow: [] })).toThrowError(
-      "pow operator needs exactly 2 operands"
+      " must NOT have fewer than 2 items"
     );
   });
 
   test("with one operand", () => {
     expect(() => evaluate({ pow: [10] })).toThrowError(
-      "pow operator needs exactly 2 operands"
+      " must NOT have fewer than 2 items"
     );
   });
 
@@ -19,7 +19,7 @@ describe("Test Prefix Expression's evaluate for power operation", () => {
 
   test("with three operands", () => {
     expect(() => evaluate({ pow: [10, 30, 50] })).toThrowError(
-      "pow operator needs exactly 2 operands"
+      " must NOT have more than 2 items"
     );
   });
 
@@ -57,13 +57,13 @@ describe("Test Prefix Expression's evaluate for power operation", () => {
 
   test("with object as exponent", () => {
     expect(() => evaluate({ pow: [10, { a: "x" }] })).toThrowError(
-      "Can not apply pow Operation on operand at 1"
+      "/1 must be number"
     );
   });
 
   test("with object as base", () => {
     expect(() => evaluate({ pow: [{ a: "x" }, 2] })).toThrowError(
-      "Can not apply pow Operation on operand at 0"
+      "/0 must be number"
     );
   });
 

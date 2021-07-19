@@ -36,7 +36,7 @@ describe("Test Prefix Expression's evaluate for multiply operation", () => {
   test("with object", () => {
     expect(() =>
       evaluate({ "*": [10, true, null, "50.5", { a: "x" }] })
-    ).toThrowError("Can not apply * Operation on operand at 4");
+    ).toThrowError("/4 must be number");
   });
 
   test("with nested operation", () => {
@@ -48,6 +48,6 @@ describe("Test Prefix Expression's evaluate for multiply operation", () => {
   test("with unresolved operand", () => {
     expect(
       evaluate({ "*": [10, true, "50.5", { someOperator: [5, 6] }] })
-    ).toEqual({ "*": [505, { someOperator: [5, 6] }] });
+    ).toEqual({ "*": [10, true, "50.5", { someOperator: [5, 6] }] });
   });
 });
