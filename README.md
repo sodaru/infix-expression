@@ -24,8 +24,6 @@ The supported `OPERATOR`s are
     ( `+`, `-`, `*`, `/`, `pow`, `%` )
   - Comparision  
     ( `>`, `>=`, `<`, `<=` )
-  - Others  
-    ( `max`, `min` )
 - Boolean Logic
   - Comparision  
     ( `==`, `===`, `!=`, `!==` )
@@ -40,6 +38,7 @@ The supported `OPERATOR`s are
   - ( `intersection`, `diff`, `union` )
   - ( `contains` )
   - ( `length` )
+  - ( `max`, `min` )
 - String
   - ( `match` )
   - ( `cat` )
