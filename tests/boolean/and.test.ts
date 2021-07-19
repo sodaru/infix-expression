@@ -3,13 +3,13 @@ import evaluate from "../../src/evaluate";
 describe("Test Prefix Expression's evaluate for and operation", () => {
   test("with zero operand", () => {
     expect(() => evaluate({ "&&": [] })).toThrowError(
-      "&& operator needs exactly 2 operands"
+      " must NOT have fewer than 2 items"
     );
   });
 
   test("with one operand", () => {
     expect(() => evaluate({ "&&": [10] })).toThrowError(
-      "&& operator needs exactly 2 operands"
+      " must NOT have fewer than 2 items"
     );
   });
 
@@ -19,20 +19,26 @@ describe("Test Prefix Expression's evaluate for and operation", () => {
 
   test("with three operands", () => {
     expect(() => evaluate({ "&&": [10, 30, 50] })).toThrowError(
-      "&& operator needs exactly 2 operands"
+      " must NOT have more than 2 items"
     );
   });
 
   test("with negative right", () => {
-    expect(evaluate({ "&&": [false, -3] })).toEqual(false);
+    expect(() => evaluate({ "&&": [false, -3] })).toThrowError(
+      "/1 must be boolean"
+    );
   });
 
   test("with negative left", () => {
-    expect(evaluate({ "&&": [-10, true] })).toEqual(true);
+    expect(() => evaluate({ "&&": [-10, true] })).toThrowError(
+      "/0 must be boolean"
+    );
   });
 
   test("with string", () => {
-    expect(evaluate({ "&&": ["shhhh", false] })).toEqual(false);
+    expect(() => evaluate({ "&&": ["shhhh", false] })).toThrowError(
+      "/0 must be boolean"
+    );
   });
 
   test("with boolean : true - true", () => {
@@ -54,7 +60,9 @@ describe("Test Prefix Expression's evaluate for and operation", () => {
   });
 
   test("with object", () => {
-    expect(evaluate({ "&&": [false, { a: "x" }] })).toEqual(false);
+    expect(() => evaluate({ "&&": [false, { a: "x" }] })).toThrowError(
+      "/1 must be boolean"
+    );
   });
 
   test("with nested operation", () => {

@@ -38,14 +38,16 @@ import LessThanOrEqualOperation, {
   schema as lessThanOrEqualSchema,
   operator as lessThanOrEqualOperator
 } from "./operations/arithmatic/lessThanOrEqual";
+import AndOperation, {
+  schema as andSchema,
+  operator as andOperator
+} from "./operations/boolean/and";
+import OrOperation, {
+  schema as orSchema,
+  operator as orOperator
+} from "./operations/boolean/or";
 
 /*
-import MaxOperation, {
-  operator as maxOperator
-} from "./operations/arithmatic/max";
-import MinOperation, {
-  operator as minOperator
-} from "./operations/arithmatic/min";
 import EqualOperation, {
   operator as equalOperator
 } from "./operations/boolean/equal";
@@ -61,11 +63,13 @@ import NotEqualStrictOperation, {
 import NotOperation, {
   operator as notOperator
 } from "./operations/boolean/not";
-import OrOperation, { operator as orOperator } from "./operations/boolean/or";
-import AndOperation, {
-  operator as andOperator
-} from "./operations/boolean/and";
 import IfOperation, { operator as ifOperator } from "./operations/boolean/if";
+import MaxOperation, {
+  operator as maxOperator
+} from "./operations/arithmatic/max";
+import MinOperation, {
+  operator as minOperator
+} from "./operations/arithmatic/min";
 import MapOperation, { operator as mapOperator } from "./operations/array/map";
 import FilterOperation, {
   operator as filterOperator
@@ -128,6 +132,14 @@ const defaultOperators: Record<
   [lessThanOrEqualOperator]: {
     schema: lessThanOrEqualSchema,
     operation: LessThanOrEqualOperation
+  },
+  [andOperator]: {
+    schema: andSchema,
+    operation: AndOperation
+  },
+  [orOperator]: {
+    schema: orSchema,
+    operation: OrOperation
   }
 };
 
