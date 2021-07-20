@@ -71,8 +71,11 @@ describe("Test Prefix Expression's evaluate custom operators", () => {
       evaluate({ "*": [5, 6] }, {}, [
         {
           name: "*",
-          logic: operands => {
-            return operands[0];
+          logic: {
+            schema: { type: "array", items: { type: "number" }, minItems: 1 },
+            operation: operands => {
+              return operands[0];
+            }
           }
         }
       ])

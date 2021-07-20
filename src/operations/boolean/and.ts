@@ -13,7 +13,7 @@ export const schema: JSONSchemaType<boolean[]> = {
 
 const AndOperation: Operation<typeof operator> = operands => {
   const _operands = operands as boolean[];
-  return _operands[0] && _operands[1];
+  return !!(_operands[0] && _operands[1]);
 };
 
 export default AndOperation;

@@ -1,4 +1,5 @@
 import { JSONSchemaType } from "ajv";
+import { toNumber } from "lodash";
 import { Operation } from "../../types";
 
 export const operator = "-";
@@ -15,7 +16,7 @@ const SubtractOperation: Operation<typeof operator> = operands => {
   const _operands = operands as number[];
   let totalSubtraction = 0;
   for (let i = 1; i < _operands.length; i++) {
-    totalSubtraction += _operands[i];
+    totalSubtraction += toNumber(_operands[i]);
   }
   return _operands[0] - totalSubtraction;
 };
