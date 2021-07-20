@@ -82,14 +82,17 @@ import UnionOperation, {
   schema as unionSchema,
   operator as unionOperator
 } from "./operations/array/union";
+import MaxOperation, {
+  schema as maxSchema,
+  operator as maxOperator
+} from "./operations/array/max";
+import MinOperation, {
+  schema as minSchema,
+  operator as minOperator
+} from "./operations/array/min";
 
 /*
-import MaxOperation, {
-  operator as maxOperator
-} from "./operations/arithmatic/max";
-import MinOperation, {
-  operator as minOperator
-} from "./operations/arithmatic/min";
+
 import MapOperation, { operator as mapOperator } from "./operations/array/map";
 import FilterOperation, {
   operator as filterOperator
@@ -188,6 +191,14 @@ const defaultOperators: Record<
   [unionOperator]: {
     schema: unionSchema,
     operation: UnionOperation
+  },
+  [maxOperator]: {
+    schema: maxSchema as JSONSchemaType<Expression[]>,
+    operation: MaxOperation
+  },
+  [minOperator]: {
+    schema: minSchema as JSONSchemaType<Expression[]>,
+    operation: MinOperation
   }
 };
 
