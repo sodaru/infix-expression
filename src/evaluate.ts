@@ -31,6 +31,45 @@ type OperationMap = Record<string, OperatorLogic["logic"]>;
 
 type EvaluateHelper = (expression: Expression, scope: unknown) => Expression;
 
+const evaluatePrefixExpression = (
+  evaluatedObject: PrefixExpression,
+  expression: PrefixExpression,
+  operations: OperationMap
+): Expression => {
+  const operator = Object.keys(evaluatedObject)[0];
+  const operands: Expression[] = evaluatedObject[operator];
+
+  const operandsWithCallbackExpression = operands.map((operand, i) => {
+    if (isCallbackOperand(operand)) {
+      return expression[operator][i];
+    }
+    return operand;
+  });
+
+  let result: Expression = { [operator]: operandsWithCallbackExpression };
+
+  const operandsContainPrefixExpression = !operands.every(
+    operand => !isPrefixExpression(operand)
+  );
+  if (!operandsContainPrefixExpression) {
+    const operation = operations[operator];
+    if (operation) {
+      // validate operands
+      const ajv = new Ajv({ coerceTypes: true });
+      const validate = ajv.compile(operation.schema);
+
+      if (!validate(operandsWithCallbackExpression)) {
+        throw new Error(
+          validate.errors?.map(e => e.instancePath + " " + e.message).join(", ")
+        );
+      }
+
+      result = operation.operation(operands);
+    }
+  }
+  return result;
+};
+
 const evaluate = (
   expression: Expression,
   data?: unknown,
@@ -84,41 +123,11 @@ const evaluate = (
       result = evaluatedObject;
 
       if (isPrefixExpression(evaluatedObject)) {
-        const prefixExpression: PrefixExpression =
-          evaluatedObject as PrefixExpression;
-        const operator = Object.keys(prefixExpression)[0];
-        const operands: Expression[] = prefixExpression[operator];
-
-        const operandsWithCallbackExpression = operands.map((operand, i) => {
-          if (isCallbackOperand(operand)) {
-            return expression[operator][i];
-          }
-          return operand;
-        });
-
-        result = { [operator]: operandsWithCallbackExpression };
-
-        const operandsContainPrefixExpression = !operands.every(
-          operand => !isPrefixExpression(operand)
+        result = evaluatePrefixExpression(
+          evaluatedObject,
+          expression as PrefixExpression,
+          operations
         );
-        if (!operandsContainPrefixExpression) {
-          const operation = operations[operator];
-          if (operation) {
-            // validate operands
-            const ajv = new Ajv({ coerceTypes: true });
-            const validate = ajv.compile(operation.schema);
-
-            if (!validate(operandsWithCallbackExpression)) {
-              throw new Error(
-                validate.errors
-                  ?.map(e => e.instancePath + " " + e.message)
-                  .join(", ")
-              );
-            }
-
-            result = operation.operation(operands);
-          }
-        }
       } else if (isVarExpression(evaluatedObject)) {
         const varExpression: VarExpression = evaluatedObject as VarExpression;
         result = VarOperation(varExpression[varKey], scope);
