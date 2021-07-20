@@ -3,19 +3,19 @@ import evaluate from "../../src/evaluate";
 describe("Test Prefix Expression's evaluate for map operation", () => {
   test("with zero operand", () => {
     expect(() => evaluate({ map: [] })).toThrowError(
-      "map operator needs exactly 2 operands"
+      " must NOT have fewer than 2 items"
     );
   });
 
   test("with one operand", () => {
     expect(() => evaluate({ map: [10] })).toThrowError(
-      "map operator needs exactly 2 operands"
+      " must NOT have fewer than 2 items"
     );
   });
 
   test("with three operand", () => {
     expect(() => evaluate({ map: [10, 20, 30] })).toThrowError(
-      "map operator needs exactly 2 operands"
+      " must NOT have more than 2 items"
     );
   });
 
@@ -35,7 +35,7 @@ describe("Test Prefix Expression's evaluate for map operation", () => {
           { callback: { "/": [{ var: ["$.item"] }, 10] } }
         ]
       })
-    ).toThrowError("Can not apply map Operation on operand at 0");
+    ).toThrowError("/0 must be array");
   });
 
   test("with array from data", () => {
@@ -73,9 +73,9 @@ describe("Test Prefix Expression's evaluate for map operation", () => {
   test("with invalid callback", () => {
     expect(() =>
       evaluate({
-        map: [[10, 20, 30], { notcallback: { "/": [{ var: ["$.item"] }, 10] } }]
+        map: [[10, 20, 30], { notcallback: "notcallback" }]
       })
-    ).toThrowError("Can not apply / Operation on operand at 0");
+    ).toThrowError("/1 must NOT have additional properties");
   });
 
   test("with another invalid callback", () => {
@@ -83,7 +83,7 @@ describe("Test Prefix Expression's evaluate for map operation", () => {
       evaluate({
         map: [[10, 20, 30], "not a callback"]
       })
-    ).toThrowError("operand at 1 must be a callback for map operator");
+    ).toThrowError("/1 must be object");
   });
 
   test("with string as callback expression", () => {
@@ -94,19 +94,11 @@ describe("Test Prefix Expression's evaluate for map operation", () => {
     ).toEqual(["let's see", "let's see", "let's see"]);
   });
 
-  test("with mimic callback operand", () => {
+  test("with more keys in callback operand", () => {
     expect(() =>
       evaluate({
         map: [[10, 20, 30], { callback: "let's see", expression: "again" }]
       })
-    ).toThrowError("callback.callback is not a function");
-  });
-
-  test("with mimic callback with more keys", () => {
-    expect(() =>
-      evaluate({
-        map: [[10, 20, 30], { callback: "let's see", isee: "again" }]
-      })
-    ).toThrowError("operand at 1 must be a callback for map operator");
+    ).toThrowError("/1 must NOT have additional properties");
   });
 });

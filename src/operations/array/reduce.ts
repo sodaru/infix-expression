@@ -1,51 +1,32 @@
-import { isArray } from "lodash";
+import { JSONSchemaType } from "ajv";
 import { CallbackFunction, Expression, Operation } from "../../types";
-import { isCallbackOperand, isPrefixExpression } from "../../utils";
 
 export const operator = "reduce";
 
+// @ts-expect-error JSONSchemaType does not support array of schemas in items
+export const schema: JSONSchemaType<Expression[]> = {
+  type: "array",
+  items: [
+    { type: "array", items: { type: "number" } },
+    {
+      type: "object",
+      properties: { callback: true },
+      additionalProperties: false
+    },
+    true
+  ],
+  minItems: 3,
+  additionalItems: false
+};
+
 const ReduceOperation: Operation<typeof operator> = operands => {
-  if (operands.length != 3) {
-    throw new Error(`${operator} operator needs exactly 3 operands`);
-  }
+  const _array = operands[0] as unknown[];
+  const _callback = operands[1] as { callback: CallbackFunction };
+  const _initialValue = operands[2];
 
-  const _prefixExpression = "prefixExpression";
-  const _array = "array";
-
-  const operand1Type = isPrefixExpression(operands[0])
-    ? _prefixExpression
-    : isArray(operands[0])
-    ? _array
-    : null;
-
-  if (operand1Type == null) {
-    throw new Error(`Can not apply ${operator} Operation on operand at 0`);
-  }
-
-  const callback = isCallbackOperand(operands[1])
-    ? (operands[1] as unknown as {
-        callback: CallbackFunction;
-        expression: Expression;
-      })
-    : null;
-
-  if (callback == null) {
-    throw new Error(`operand at 1 must be a callback for ${operator} operator`);
-  }
-
-  const operand3Type = isPrefixExpression(operands[2])
-    ? _prefixExpression
-    : null;
-
-  if (operand1Type == _prefixExpression || operand3Type == _prefixExpression) {
-    return {
-      [operator]: [operands[0], { callback: callback.expression }, operands[2]]
-    };
-  }
-
-  return (operands[0] as Expression[]).reduce((prev, item, i) => {
-    return callback.callback({ prev, item, i });
-  }, operands[2]);
+  return _array.reduce((prev, item, i) => {
+    return _callback.callback({ prev, item, i });
+  }, _initialValue) as Expression;
 };
 
 export default ReduceOperation;

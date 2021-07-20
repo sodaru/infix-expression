@@ -8,7 +8,6 @@ import {
 } from "lodash";
 
 import {
-  CallbackExpression,
   callbackKey,
   Expression,
   OperatorLogic,
@@ -18,6 +17,7 @@ import {
 } from "./types";
 import {
   isCallbackExpression,
+  isCallbackOperand,
   isPrefixExpression,
   isVarExpression
 } from "./utils";
@@ -72,8 +72,7 @@ const evaluate = (
             ...args,
             parent: scope
           });
-        },
-        expression: (expression as CallbackExpression).callback
+        }
       };
     } else if (isPlainObject(expression)) {
       const keys = Object.keys(expression);
@@ -90,6 +89,15 @@ const evaluate = (
         const operator = Object.keys(prefixExpression)[0];
         const operands: Expression[] = prefixExpression[operator];
 
+        const operandsWithCallbackExpression = operands.map((operand, i) => {
+          if (isCallbackOperand(operand)) {
+            return expression[operator][i];
+          }
+          return operand;
+        });
+
+        result = { [operator]: operandsWithCallbackExpression };
+
         const operandsContainPrefixExpression = !operands.every(
           operand => !isPrefixExpression(operand)
         );
@@ -99,13 +107,15 @@ const evaluate = (
             // validate operands
             const ajv = new Ajv({ coerceTypes: true });
             const validate = ajv.compile(operation.schema);
-            if (!validate(operands)) {
+
+            if (!validate(operandsWithCallbackExpression)) {
               throw new Error(
                 validate.errors
                   ?.map(e => e.instancePath + " " + e.message)
                   .join(", ")
               );
             }
+
             result = operation.operation(operands);
           }
         }

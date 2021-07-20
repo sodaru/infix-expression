@@ -1,44 +1,29 @@
-import { isArray } from "lodash";
+import { JSONSchemaType } from "ajv";
 import { CallbackFunction, Expression, Operation } from "../../types";
-import { isCallbackOperand, isPrefixExpression } from "../../utils";
 
 export const operator = "map";
 
+// @ts-expect-error JSONSchemaType does not support array of schemas in items
+export const schema: JSONSchemaType<Expression[]> = {
+  type: "array",
+  items: [
+    { type: "array", items: { type: "number" } },
+    {
+      type: "object",
+      properties: { callback: true },
+      additionalProperties: false
+    }
+  ],
+  minItems: 2,
+  additionalItems: false
+};
+
 const MapOperation: Operation<typeof operator> = operands => {
-  if (operands.length != 2) {
-    throw new Error(`${operator} operator needs exactly 2 operands`);
-  }
+  const _array = operands[0] as unknown[];
+  const _callback = operands[1] as { callback: CallbackFunction };
 
-  const _prefixExpression = "prefixExpression";
-  const _array = "array";
-
-  const operand1Type = isPrefixExpression(operands[0])
-    ? _prefixExpression
-    : isArray(operands[0])
-    ? _array
-    : null;
-
-  if (operand1Type == null) {
-    throw new Error(`Can not apply ${operator} Operation on operand at 0`);
-  }
-
-  const callback = isCallbackOperand(operands[1])
-    ? (operands[1] as unknown as {
-        callback: CallbackFunction;
-        expression: Expression;
-      })
-    : null;
-
-  if (callback == null) {
-    throw new Error(`operand at 1 must be a callback for ${operator} operator`);
-  }
-
-  if (operand1Type == _prefixExpression) {
-    return { [operator]: [operands[0], { callback: callback.expression }] };
-  }
-
-  return (operands[0] as Expression[]).map((item, i) => {
-    return callback.callback({ item, i });
+  return _array.map((item, i) => {
+    return _callback.callback({ item, i });
   });
 };
 

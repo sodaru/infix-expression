@@ -90,17 +90,19 @@ import MinOperation, {
   schema as minSchema,
   operator as minOperator
 } from "./operations/array/min";
-
-/*
-
-import MapOperation, { operator as mapOperator } from "./operations/array/map";
 import FilterOperation, {
+  schema as filterSchema,
   operator as filterOperator
 } from "./operations/array/filter";
+import MapOperation, {
+  schema as mapSchema,
+  operator as mapOperator
+} from "./operations/array/map";
 import ReduceOperation, {
+  schema as reduceSchema,
   operator as reduceOperator
 } from "./operations/array/reduce";
- */
+
 import { Expression, Operation } from "./types";
 import { JSONSchemaType } from "ajv";
 
@@ -199,6 +201,18 @@ const defaultOperators: Record<
   [minOperator]: {
     schema: minSchema as JSONSchemaType<Expression[]>,
     operation: MinOperation
+  },
+  [filterOperator]: {
+    schema: filterSchema,
+    operation: FilterOperation
+  },
+  [mapOperator]: {
+    schema: mapSchema,
+    operation: MapOperation
+  },
+  [reduceOperator]: {
+    schema: reduceSchema,
+    operation: ReduceOperation
   }
 };
 

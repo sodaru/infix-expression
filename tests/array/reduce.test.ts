@@ -3,19 +3,25 @@ import evaluate from "../../src/evaluate";
 describe("Test Prefix Expression's evaluate for reduce operation", () => {
   test("with zero operand", () => {
     expect(() => evaluate({ reduce: [] })).toThrowError(
-      "reduce operator needs exactly 3 operands"
+      " must NOT have fewer than 3 items"
     );
   });
 
   test("with one operand", () => {
     expect(() => evaluate({ reduce: [10] })).toThrowError(
-      "reduce operator needs exactly 3 operands"
+      " must NOT have fewer than 3 items"
     );
   });
 
   test("with two operand", () => {
     expect(() => evaluate({ reduce: [10, 30] })).toThrowError(
-      "reduce operator needs exactly 3 operands"
+      " must NOT have fewer than 3 items"
+    );
+  });
+
+  test("with four operand", () => {
+    expect(() => evaluate({ reduce: [10, 30, 40, 60] })).toThrowError(
+      " must NOT have more than 3 items"
     );
   });
 
@@ -40,7 +46,7 @@ describe("Test Prefix Expression's evaluate for reduce operation", () => {
           0
         ]
       })
-    ).toThrowError("Can not apply reduce Operation on operand at 0");
+    ).toThrowError("/0 must be array");
   });
 
   test("with array from data", () => {
@@ -87,13 +93,9 @@ describe("Test Prefix Expression's evaluate for reduce operation", () => {
   test("with invalid callback", () => {
     expect(() =>
       evaluate({
-        reduce: [
-          [10, 20, 30],
-          { notcallback: { "+": [{ var: ["$.prev"] }, { var: ["$.item"] }] } },
-          0
-        ]
+        reduce: [[10, 20, 30], { notcallback: "notcallback" }, 0]
       })
-    ).toThrowError("Can not apply + Operation on operand at 0");
+    ).toThrowError("/1 must NOT have additional properties");
   });
 
   test("with another invalid callback", () => {
@@ -101,7 +103,7 @@ describe("Test Prefix Expression's evaluate for reduce operation", () => {
       evaluate({
         reduce: [[10, 20, 30], "not a callback", 0]
       })
-    ).toThrowError("operand at 1 must be a callback for reduce operator");
+    ).toThrowError("/1 must be object");
   });
 
   test("with string as callback expression", () => {
@@ -112,7 +114,7 @@ describe("Test Prefix Expression's evaluate for reduce operation", () => {
     ).toEqual("let's see");
   });
 
-  test("with mimic callback operand", () => {
+  test("with more keys in callback operand", () => {
     expect(() =>
       evaluate({
         reduce: [
@@ -121,15 +123,7 @@ describe("Test Prefix Expression's evaluate for reduce operation", () => {
           0
         ]
       })
-    ).toThrowError("callback.callback is not a function");
-  });
-
-  test("with mimic callback with more keys", () => {
-    expect(() =>
-      evaluate({
-        reduce: [[10, 20, 30], { callback: "let's see", isee: "again" }, 0]
-      })
-    ).toThrowError("operand at 1 must be a callback for reduce operator");
+    ).toThrowError("/1 must NOT have additional properties");
   });
 
   test("with unresolved initial value", () => {

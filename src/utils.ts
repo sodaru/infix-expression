@@ -1,4 +1,4 @@
-import { isArray, isPlainObject } from "lodash";
+import { isArray, isFunction, isPlainObject } from "lodash";
 import {
   CallbackExpression,
   callbackKey,
@@ -51,12 +51,11 @@ export const isCallbackExpression = (operand: Expression): boolean => {
 export const isCallbackOperand = (operand: Expression): boolean => {
   const _operand = operand as {
     callback: () => Expression;
-    expression: Expression;
   };
   let isCallbackOperand = false;
-  if (isPlainObject(operand) && Object.keys(_operand).length == 2) {
+  if (isPlainObject(operand) && Object.keys(_operand).length == 1) {
     const keys = Object.keys(_operand);
-    if (keys[0] == callbackKey && keys[1] == "expression") {
+    if (keys[0] == callbackKey && isFunction(_operand[callbackKey])) {
       isCallbackOperand = true;
     }
   }
