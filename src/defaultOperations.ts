@@ -70,6 +70,18 @@ import NotOperation, {
   schema as notSchema,
   operator as notOperator
 } from "./operations/boolean/not";
+import DiffOperation, {
+  schema as diffSchema,
+  operator as diffOperator
+} from "./operations/array/diff";
+import IntersectionOperation, {
+  schema as intersectionSchema,
+  operator as intersectionOperator
+} from "./operations/array/intersection";
+import UnionOperation, {
+  schema as unionSchema,
+  operator as unionOperator
+} from "./operations/array/union";
 
 /*
 import MaxOperation, {
@@ -85,15 +97,7 @@ import FilterOperation, {
 import ReduceOperation, {
   operator as reduceOperator
 } from "./operations/array/reduce";
-import IntersectionOperation, {
-  operator as intersectionOperator
-} from "./operations/array/intersection";
-import UnionOperation, {
-  operator as unionOperator
-} from "./operations/array/union";
-import DiffOperation, {
-  operator as diffOperator
-} from "./operations/array/diff"; */
+ */
 import { Expression, Operation } from "./types";
 import { JSONSchemaType } from "ajv";
 
@@ -172,6 +176,18 @@ const defaultOperators: Record<
   [notOperator]: {
     schema: notSchema,
     operation: NotOperation
+  },
+  [diffOperator]: {
+    schema: diffSchema,
+    operation: DiffOperation
+  },
+  [intersectionOperator]: {
+    schema: intersectionSchema,
+    operation: IntersectionOperation
+  },
+  [unionOperator]: {
+    schema: unionSchema,
+    operation: UnionOperation
   }
 };
 

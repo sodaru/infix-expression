@@ -1,33 +1,22 @@
-import { difference, isArray } from "lodash";
-import { Operation, PrefixExpression } from "../../types";
-import { isPrefixExpression } from "../../utils";
+import { JSONSchemaType } from "ajv";
+import { difference } from "lodash";
+import { Operation } from "../../types";
 
 export const operator = "diff";
 
+// @ts-expect-error JSONSchemaType does not support true to items key
+export const schema: JSONSchemaType<unknown[][]> = {
+  type: "array",
+  items: {
+    type: "array",
+    items: true
+  },
+  minItems: 1
+};
+
 const DiffOperation: Operation<typeof operator> = operands => {
-  if (operands.length == 0) {
-    throw new Error(`atleast 1 operand is expected for operator ${operator}`);
-  }
-
-  const arrays = [];
-  const unresolvedOperands: PrefixExpression[] = [];
-  operands.forEach((operand, i) => {
-    if (isArray(operand)) {
-      arrays.push(operand);
-    } else if (isPrefixExpression(operand)) {
-      unresolvedOperands.push(operand as PrefixExpression);
-    } else {
-      throw new Error(`Can not apply ${operator} Operation on operand at ${i}`);
-    }
-  });
-
-  if (unresolvedOperands.length > 0) {
-    return {
-      [operator]: [...operands]
-    };
-  } else {
-    return difference(arrays[0], ...arrays.slice(1));
-  }
+  const arrays = operands as unknown[][];
+  return difference(arrays[0], ...arrays.slice(1));
 };
 
 export default DiffOperation;

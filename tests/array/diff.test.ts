@@ -3,7 +3,7 @@ import evaluate from "../../src/evaluate";
 describe("Test Prefix Expression's evaluate for diff operation", () => {
   test("with zero operand", () => {
     expect(() => evaluate({ diff: [] })).toThrowError(
-      "atleast 1 operand is expected for operator diff"
+      " must NOT have fewer than 1 items"
     );
   });
 
@@ -39,7 +39,7 @@ describe("Test Prefix Expression's evaluate for diff operation", () => {
       evaluate({
         diff: [{ a: 10, b: 20, c: 30 }, [30, 40, 10]]
       })
-    ).toThrowError("Can not apply diff Operation on operand at 0");
+    ).toThrowError("/0 must be array");
   });
 
   test("with invalid 2nd array", () => {
@@ -47,7 +47,7 @@ describe("Test Prefix Expression's evaluate for diff operation", () => {
       evaluate({
         diff: [[30, 40, 10], { a: 10, b: 20, c: 30 }]
       })
-    ).toThrowError("Can not apply diff Operation on operand at 1");
+    ).toThrowError("/1 must be array");
   });
 
   test("with array from data", () => {

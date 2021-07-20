@@ -37,7 +37,7 @@ describe("Test Prefix Expression's evaluate for union operation", () => {
       evaluate({
         union: [{ a: 10, b: 20, c: 30 }, [30, 40, 10]]
       })
-    ).toThrowError("Can not apply union Operation on operand at 0");
+    ).toThrowError("/0 must be array");
   });
 
   test("with invalid 2nd array", () => {
@@ -45,7 +45,7 @@ describe("Test Prefix Expression's evaluate for union operation", () => {
       evaluate({
         union: [[30, 40, 10], { a: 10, b: 20, c: 30 }]
       })
-    ).toThrowError("Can not apply union Operation on operand at 1");
+    ).toThrowError("/1 must be array");
   });
 
   test("with array from data", () => {
@@ -65,7 +65,7 @@ describe("Test Prefix Expression's evaluate for union operation", () => {
         union: [[2, 4], { someOperator: [1, 2] }, [1, 2, 3]]
       })
     ).toEqual({
-      union: [[2, 4, 1, 3], { someOperator: [1, 2] }]
+      union: [[2, 4], { someOperator: [1, 2] }, [1, 2, 3]]
     });
   });
 });

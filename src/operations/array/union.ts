@@ -1,29 +1,22 @@
-import { isArray, union } from "lodash";
-import { Operation, PrefixExpression } from "../../types";
-import { isPrefixExpression } from "../../utils";
+import { JSONSchemaType } from "ajv";
+import { union } from "lodash";
+import { Operation } from "../../types";
 
 export const operator = "union";
 
+// @ts-expect-error JSONSchemaType does not support true to items key
+export const schema: JSONSchemaType<unknown[][]> = {
+  type: "array",
+  items: {
+    type: "array",
+    items: true
+  },
+  minItems: 0
+};
+
 const UnionOperation: Operation<typeof operator> = operands => {
-  const arrays = [];
-  const unresolvedOperands: PrefixExpression[] = [];
-  operands.forEach((operand, i) => {
-    if (isArray(operand)) {
-      arrays.push(operand);
-    } else if (isPrefixExpression(operand)) {
-      unresolvedOperands.push(operand as PrefixExpression);
-    } else {
-      throw new Error(`Can not apply ${operator} Operation on operand at ${i}`);
-    }
-  });
-
-  const result = arrays.length > 0 ? union(...arrays) : [];
-
-  if (unresolvedOperands.length > 0) {
-    return { [operator]: [result, ...unresolvedOperands] };
-  } else {
-    return result;
-  }
+  const arrays = operands as unknown[][];
+  return union(...arrays);
 };
 
 export default UnionOperation;
