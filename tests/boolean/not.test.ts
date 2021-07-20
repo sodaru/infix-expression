@@ -3,36 +3,38 @@ import evaluate from "../../src/evaluate";
 describe("Test Prefix Expression's evaluate for not operation", () => {
   test("with zero operand", () => {
     expect(() => evaluate({ "!": [] })).toThrowError(
-      "! operator needs exactly 1 operand"
+      " must NOT have fewer than 1 items"
     );
   });
 
   test("with one operand", () => {
-    expect(evaluate({ "!": [10] })).toEqual(false);
+    expect(evaluate({ "!": [1] })).toEqual(false);
   });
 
   test("with two operands", () => {
     expect(() => evaluate({ "!": [11, 3] })).toThrowError(
-      "! operator needs exactly 1 operand"
+      " must NOT have more than 1 items"
     );
   });
 
   test("with three operands", () => {
     expect(() => evaluate({ "!": [10, 30, 50] })).toThrowError(
-      "! operator needs exactly 1 operand"
+      " must NOT have more than 1 items"
     );
   });
 
   test("with negative", () => {
-    expect(evaluate({ "!": [-10] })).toEqual(false);
+    expect(() => evaluate({ "!": [-10] })).toThrowError("/0 must be boolean");
   });
 
   test("with string", () => {
-    expect(evaluate({ "!": ["shhhhh"] })).toEqual(false);
+    expect(() => evaluate({ "!": ["shhhhh"] })).toThrowError(
+      "/0 must be boolean"
+    );
   });
 
   test("with empty string", () => {
-    expect(evaluate({ "!": [""] })).toEqual(true);
+    expect(() => evaluate({ "!": [""] })).toThrowError("/0 must be boolean");
   });
 
   test("with boolean true ", () => {
@@ -48,7 +50,9 @@ describe("Test Prefix Expression's evaluate for not operation", () => {
   });
 
   test("with object", () => {
-    expect(evaluate({ "!": [{ a: "x" }] })).toEqual(false);
+    expect(() => evaluate({ "!": [{ a: "x" }] })).toThrowError(
+      "/0 must be boolean"
+    );
   });
 
   test("with nested operation", () => {

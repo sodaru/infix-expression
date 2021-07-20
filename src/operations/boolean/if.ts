@@ -1,17 +1,17 @@
+import { JSONSchemaType } from "ajv";
 import { Operation } from "../../types";
-import { isPrefixExpression } from "../../utils";
 
 export const operator = "if";
 
+// @ts-expect-error JSONSchemaType does not support array of schemas in items
+export const schema: JSONSchemaType<unknown[]> = {
+  type: "array",
+  items: [{ type: "boolean" }, true, true],
+  minItems: 3,
+  additionalItems: false
+};
+
 const IfOperation: Operation<typeof operator> = operands => {
-  if (operands.length != 3) {
-    throw new Error(`${operator} operator needs exactly 3 operands`);
-  }
-
-  if (isPrefixExpression(operands[0])) {
-    return { [operator]: [...operands] };
-  }
-
   return operands[0] ? operands[1] : operands[2];
 };
 

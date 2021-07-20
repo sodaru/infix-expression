@@ -62,12 +62,16 @@ import NotEqualStrictOperation, {
   schema as notEqualStrictSchema,
   operator as notEqualStrictOperator
 } from "./operations/boolean/notEqualStrict";
-
-/*
+import IfOperation, {
+  schema as ifSchema,
+  operator as ifOperator
+} from "./operations/boolean/if";
 import NotOperation, {
+  schema as notSchema,
   operator as notOperator
 } from "./operations/boolean/not";
-import IfOperation, { operator as ifOperator } from "./operations/boolean/if";
+
+/*
 import MaxOperation, {
   operator as maxOperator
 } from "./operations/arithmatic/max";
@@ -160,6 +164,14 @@ const defaultOperators: Record<
   [notEqualStrictOperator]: {
     schema: notEqualStrictSchema,
     operation: NotEqualStrictOperation
+  },
+  [ifOperator]: {
+    schema: ifSchema,
+    operation: IfOperation
+  },
+  [notOperator]: {
+    schema: notSchema,
+    operation: NotOperation
   }
 };
 
