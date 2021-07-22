@@ -30,4 +30,10 @@ describe("Test Prefix Expression's evaluate for size operation", () => {
       "/0 must be array, /0 must be string, /0 must match exactly one schema in oneOf"
     );
   });
+
+  test("with unresolved operand", () => {
+    expect(evaluate({ size: [{ someoperator: [1, 2] }] })).toEqual({
+      size: [{ someoperator: [1, 2] }]
+    });
+  });
 });
