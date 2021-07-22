@@ -2,6 +2,10 @@
 
 Library to Evaluate Prefix Expressions represented in JSON
 
+[![Publish](https://github.com/sodaru/prefix-expression/actions/workflows/publish.to.npm.yml/badge.svg)](https://github.com/sodaru/prefix-expression/actions/workflows/publish.to.npm.yml)
+
+> npm i [prefix-expression](http://www.npmjs.com/package/prefix-expression)
+
 ## Overview
 
 [prefix expression](https://en.wikipedia.org/wiki/Polish_notation) can be represented in JSON Format as follows
@@ -58,7 +62,7 @@ The supported `OPERATOR`s are
 ## Install
 
 ```SH
-npm i infix-expression
+npm i prefix-expression
 ```
 
 ## Usage
@@ -66,10 +70,10 @@ npm i infix-expression
 ### evaluate
 
 ```TS
-import { evaluate } from "infix-expression"
+import { evaluate, PrefixExpression, Expression } from "prefix-expression"
 
-// infix expression
-const expression: InfixExpression;
+// prefix expression
+const expression: PrefixExpression;
 
 // simple evaluate
 const result = evaluate(expression);
@@ -81,7 +85,9 @@ const result = evaluate(expression, data);
 // overide the operators
 type OperatorLogic = {
   name: string;
-  logic: (operands)=>unknown;
+  logic: {
+    schema: JSONSchemaType<Expression[]>;
+    operation: (operands: Expression)=>Expression};
 }
 const operators: (string|OperatorLogic)[];
 const result = evaluate(expression, {}, operators);
@@ -90,3 +96,11 @@ const result = evaluate(expression, {}, operators);
 
 - `result` is either result of the expression OR reduced expression with unresolved data
 - result can be still evaluated when more data is available
+
+---
+
+## Support
+
+This project is a part of Open Source Intitiative from [Sodaru Technologies](https://sodaru.com)
+
+Write an email to opensource@sodaru.com for queries on this project
