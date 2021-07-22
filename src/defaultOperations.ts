@@ -102,6 +102,14 @@ import ReduceOperation, {
   schema as reduceSchema,
   operator as reduceOperator
 } from "./operations/array/reduce";
+import IncludesOperation, {
+  schema as includesSchema,
+  operator as includesOperator
+} from "./operations/array/includes";
+import SizeOperation, {
+  schema as sizeSchema,
+  operator as sizeOperator
+} from "./operations/size";
 
 import { Expression, Operation } from "./types";
 import { JSONSchemaType } from "ajv";
@@ -213,6 +221,14 @@ const defaultOperators: Record<
   [reduceOperator]: {
     schema: reduceSchema,
     operation: ReduceOperation
+  },
+  [includesOperator]: {
+    schema: includesSchema,
+    operation: IncludesOperation
+  },
+  [sizeOperator]: {
+    schema: sizeSchema,
+    operation: SizeOperation
   }
 };
 

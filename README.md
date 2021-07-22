@@ -36,13 +36,14 @@ The supported `OPERATOR`s are
 - Array
   - ( `map`, `reduce`, `filter` )
   - ( `intersection`, `diff`, `union` )
-  - ( `contains` )
-  - ( `length` )
+  - ( `includes` )
+  - ( `size` ) _works with string also_
   - ( `max`, `min` )
 - String
   - ( `match` )
   - ( `cat` )
-  - ( `substr`, `length` )
+  - ( `substr` )
+  - ( `size` ) _works with array also_
 - Object
   - ( `entries` )
 - Special Operators  
