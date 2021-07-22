@@ -118,6 +118,10 @@ import ConcatOperation, {
   schema as concatSchema,
   operator as concatOperator
 } from "./operations/string/concat";
+import EntriesOperation, {
+  schema as entriesSchema,
+  operator as entriesOperator
+} from "./operations/object/entries";
 
 import { Expression, Operation } from "./types";
 import { JSONSchemaType } from "ajv";
@@ -245,6 +249,10 @@ const defaultOperators: Record<
   [concatOperator]: {
     schema: concatSchema,
     operation: ConcatOperation
+  },
+  [entriesOperator]: {
+    schema: entriesSchema,
+    operation: EntriesOperation
   }
 };
 

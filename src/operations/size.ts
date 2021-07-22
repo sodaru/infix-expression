@@ -7,19 +7,17 @@ export const operator = "size";
 // @ts-expect-error JSONSchemType does not support positional schema in items
 export const schema: JSONSchemaType<Expression[]> = {
   type: "array",
-  items: [
-    {
-      oneOf: [
-        {
-          type: "array",
-          items: true
-        },
-        { type: "string" }
-      ]
-    }
-  ],
+  items: {
+    oneOf: [
+      {
+        type: "array",
+        items: true
+      },
+      { type: "string" }
+    ]
+  },
   minItems: 1,
-  additionalItems: false
+  maxItems: 1
 };
 
 const SizeOperation: Operation<typeof operator> = operands => {
