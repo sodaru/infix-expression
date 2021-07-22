@@ -110,6 +110,14 @@ import SizeOperation, {
   schema as sizeSchema,
   operator as sizeOperator
 } from "./operations/size";
+import IndexOfOperation, {
+  schema as indexOfSchema,
+  operator as indexOfOperator
+} from "./operations/string/indexOf";
+import ConcatOperation, {
+  schema as concatSchema,
+  operator as concatOperator
+} from "./operations/string/concat";
 
 import { Expression, Operation } from "./types";
 import { JSONSchemaType } from "ajv";
@@ -229,6 +237,14 @@ const defaultOperators: Record<
   [sizeOperator]: {
     schema: sizeSchema,
     operation: SizeOperation
+  },
+  [indexOfOperator]: {
+    schema: indexOfSchema,
+    operation: IndexOfOperation
+  },
+  [concatOperator]: {
+    schema: concatSchema,
+    operation: ConcatOperation
   }
 };
 

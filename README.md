@@ -40,9 +40,8 @@ The supported `OPERATOR`s are
   - ( `size` ) _works with string also_
   - ( `max`, `min` )
 - String
-  - ( `match` )
-  - ( `cat` )
-  - ( `substr` )
+  - ( `indexOf` )
+  - ( `concat` )
   - ( `size` ) _works with array also_
 - Object
   - ( `entries` )
